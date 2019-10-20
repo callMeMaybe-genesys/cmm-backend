@@ -15,11 +15,33 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
     integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
     crossorigin="anonymous"></script>
+  <!-- Load icon library -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
 <body>
-  <h1><%= title %></h1>
-  <p>Welcome to <%= title %></p>
+  <div class="row">
+    <div class="col-6">
+      <h1><%= title %></h1>
+      <p>Welcome to <%= title %>llalalalala</p>
+    </div>
+    <div class="col-6"></div>
+
+  </div>
+  <div class="row">
+    <form class="example" action="search/result" method="POST">
+      <input id="searchtext" type="text" placeholder="Search.." name="searched">
+      <button type="submit">Post</button>
+      <a href="" class="btn btn-primary" ><i class="fa fa-search"></i></a>
+    </form>
+
+  </div>
+  <div class="row">
+    <div id="results">
+
+    </div>
+  </div>
 </body>
+<script src="/javascripts/retrieve_results.js"></script>
 
 </html>
