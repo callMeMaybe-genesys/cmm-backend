@@ -4,7 +4,7 @@ var request = require("request");
 var config = require('../config');
 
 var options = { method: 'POST',
-  url: 'https://api.genesysappliedresearch.com/v2/knowledge/knowledgebases/10c3c99a-654e-4196-82b3-2377ba1f93e5/search',
+  url: `https://api.genesysappliedresearch.com/v2/knowledge/knowledgebases/${config.kbId}/search`,
   headers: 
    { 'cache-control': 'no-cache',
      Connection: 'keep-alive',
@@ -30,12 +30,13 @@ router.get('/', function(req, res, next) {
 router.post('/result', function(req, res, next) {
   options.headers.token = config.token;
   options.body.query = req.body.searched;
+  console.log(req.body);
   
   request(options, function (error, response, body) {
     if (error) throw new Error(error);
     //console.log(body);
     for (let faq of body.results) {
-      console.log(faq.faq.answer);
+      console.log(faq.faq.answer + '\n');
     }
     res.send(body.results);
   });  

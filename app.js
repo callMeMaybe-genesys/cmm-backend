@@ -6,6 +6,7 @@ var logger = require('morgan');
 var request = require('request');
 var config = require('./config');
 var bodyParser = require('body-parser');
+//const helmet = require('helmet');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -40,6 +41,7 @@ request(options, function (error, response, body) {
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
+//app.use(helmet.frameguard({ action: "sameorigin" }));
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
