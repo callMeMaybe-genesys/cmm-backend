@@ -14,7 +14,7 @@ searchFrame.setAttribute("width", "600");
 searchFrame.setAttribute("height", "400");
 
 var searchImage = document.createElement("img");
-searchImage.setAttribute("src", "https://a0.muscache.com/im/pictures/31210274/186b8c00_original.jpg?aki_policy=xx_large")
+searchImage.setAttribute("src", "")
 searchImage.setAttribute("width", "600");
 searchImage.setAttribute("height", "400");
 
@@ -34,32 +34,38 @@ document.body.appendChild(firebaseDbDiv);
 
 // Your web app's Firebase configuration
 var firebaseConfig = {
-    apiKey: "AIzaSyBkNy0ys7beRljZQImYHF3CaHM3j1lLXtM",
-    authDomain: "callmemaybe-at-genesys-hack.firebaseapp.com",
-    databaseURL: "https://callmemaybe-at-genesys-hack.firebaseio.com",
-    projectId: "callmemaybe-at-genesys-hack",
-    storageBucket: "callmemaybe-at-genesys-hack.appspot.com",
-    messagingSenderId: "105991971063",
-    appId: "1:105991971063:web:0ff73b94e8e3fb04faf3f2"
+  apiKey: "AIzaSyBkNy0ys7beRljZQImYHF3CaHM3j1lLXtM",
+  authDomain: "callmemaybe-at-genesys-hack.firebaseapp.com",
+  databaseURL: "https://callmemaybe-at-genesys-hack.firebaseio.com",
+  projectId: "callmemaybe-at-genesys-hack",
+  storageBucket: "callmemaybe-at-genesys-hack.appspot.com",
+  messagingSenderId: "105991971063",
+  appId: "1:105991971063:web:0ff73b94e8e3fb04faf3f2"
 }
 
 var db;
-var initializeFb = function() {
-    // Initialize Firebase
-    if (firebase.apps.length == 0) {
-        firebase.initializeApp(firebaseConfig);
-        db = firebase.database().ref('images/');
-        db.once('value').then(function (snapshot) {
-            if (snapshot.exists()) {
-              console.log(snapshot.val());
-            } else {
-              console.log('current index not in db');
-            }
-          }).then(() => {
-        
-          }).catch(err => {
-            console.log('error :' + err);
-          });
-    }
+var initializeFb = function () {
+  // Initialize Firebase
+  if (firebase.apps.length == 0) {
+    firebase.initializeApp(firebaseConfig);
+    db = firebase.database().ref('images/');
+    db.once('value').then(function (snapshot) {
+      if (snapshot.exists()) {
+        console.log(snapshot.val());
+      } else {
+        console.log('current index not in db');
+      }
+    }).then(() => {
+      var updateRef = firebase.database().ref('update');
+      updateRef.on('child_added', function (snapshot) {
+        var newImg = snapshot.val().image;
+        console.log(newImg);
+        searchImage.setAttribute("src", newImg);
+      })
+    }).catch(err => {
+      console.log('error :' + err);
+    });
+  }
 }
 window.setTimeout(initializeFb, 2000);
+
